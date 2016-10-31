@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <title>MeanMart</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body ng-app="listItemSection">
+    <div class="container" ng-controller="listController">
+
+        <div class="page-header text-center">
+            <h1><span class="fa fa-anchor"></span>My store</h1>
+            <a href="/main" class="btn btn-default btn-sm">Main Menu</a>
+            <a href="/mystore" class="btn btn-default btn-sm">My Store</a>
+            <a href="/mycart" class="btn btn-default btn-sm">My Cart<span ng-show="itemInCartList.length > 0" style="position:relative;left:3px;background-color:red" class="badge">{{itemInCartList.length}}</span></a>
+            <a href="/profile" class="btn btn-default btn-sm">Edit Profile</a>
+        </div>
+        
+
+        <div class="row">
+            <form name="form" ng-submit="addItem()">
+            <h2>Add Item to sell</h2>
+                Item Name: <input type=text class="form-control" name="name" ng-model="item.name" required>
+                Description: <input type=text class="form-control" ng-model="item.description" required>
+                Quantity: <input type="number" name="input" ng-model="item.quantity" min="0" required>
+                Price : <input type="number" name="input" ng-model="item.price" min="0" required>
+                <button type="submit">Submit</button>
+            </form>
+            <br>
+        </div> 
+        <div class="row">
+            <a ng-if="incomingList.length > 0" ng-click="setNewList()">There are {{difference}} new posts.</a>
+        </div>
+
+    <div class="row">
+        <h2>My Store</h2>
+        <div id="storeEmpty" ng-show="list.length <1">
+            <h1>No items added for sale.</h1>
+        </div>
+        <div class="col-md-3" ng-repeat="item in list">
+            <div id="posts" class="thumbnail" style=";height:auto;min-height:450px;width:300px;margin:10px;padding:10px;">
+                <span style="float:right;color:red;cursor:pointer;padding-right:10px;padding-top:10px" class="fa fa-times" ng-click="deleteItem(item._id)"></span>
+                <div id="imgFrame" style="height:250px;background-color: #BFBFBF;display: table-cell;vertical-align: middle;">
+                    <image style="width:240px;height:auto;background-size: cover;position:relative;display: inline-block;" ng-src="{{item.itemImage}}"></image>
+                </div>
+                <br>
+                <center><div class="btn btn-default" ngf-select="upload($file, item._id)" style="font-size:10px">Upload Image</div></center><br>
+                <h2 style="font-size:14px;margin:0px">Item name: {{item.itemName}}</h2>
+                <h4 style="font-size:14px;margin:0px">Description: {{item.itemDescription}}</h4>
+                <h4 style="font-size:14px;margin:0px">Quantity: {{item.itemQuantity}}</h4>
+                <h3 style="font-size:12px;margin:0px">RM {{item.itemPrice}} each</h3>
+                <h6 style="float:right;"><span am-time-ago="item.date"></span><br>Posted on {{item.date | date:'MM-dd-yyyy hh:mm'}}</h6><br>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+    <script src="javascripts/angular-moment.js"></script>
+    <script src="javascripts/listController.js"></script>
+    <script src="/file-upload/ng-file-upload.js"></script>
+    <script src="/file-upload/ng-file-upload-all.js"></script>
+    <script src="/file-upload/ng-file-upload-shim.js"></script>
+
+</body>
+</html>

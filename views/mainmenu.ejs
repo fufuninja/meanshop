@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <title>MeanMart</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body{    padding-top:80px; 
+                 word-wrap:break-word; 
+            }
+        a{
+            cursor:pointer;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+    
+    </style>
+</head>
+
+<body ng-app="mainMenuController">
+    <div class="container" ng-controller="mainMenuControl">
+        <div class="page-header text-center">
+            <h1><span class="fa fa-anchor"></span>MeanMart</h1>
+            <a href="/main" class="btn btn-default btn-sm">Main Menu</a>
+            <a href="/mystore" class="btn btn-default btn-sm">My Store</a>
+            <a href="/mycart" class="btn btn-default btn-sm">My Cart<span ng-show="itemInCartList.length > 0" style="position:relative;left:3px;background-color:red" class="badge">{{itemInCartList.length}}</span></a>
+            <a href="/profile" class="btn btn-default btn-sm">Edit Profile</a>
+            <a href="/messages" class="btn btn-default btn-sm">Messages</a>
+        </div>
+
+        <div class="bar">
+            <input type="text" class="search" ng-change="onFocusDropdown()" ng-model="searchString" placeholder="Enter your search terms" />
+        </div>
+        <ul class="data-ctrl" ng-show="showSearchRecommends" style="list-style-type: none;">
+            <li ng-repeat="i in items | searchFor:searchString" style="background-color:#BFBFBF">
+                <p style="margin:0px;margin-left:20px"><a ng-click="getItemFromSearch(i._id)">{{i.itemName}}</a>
+            </li>
+        </ul>
+
+        <div class="row">
+            <a ng-if="incomingListAll.length > 0" ng-click="setNewListAll()">There are {{difference}} new posts.</a>
+        </div>
+
+    <div class="row">
+        <div class="col-md-3" ng-repeat="item in list | limitTo: showNumberOfItems">
+            <div id="posts" class="thumbnail" style="height:450px;width:300px;margin:10px">
+                <div id="imgFrame" style="height:250px;background-color: #BFBFBF;display: table-cell;vertical-align: middle;">
+                    <image style="width:100%;height:auto;background-size: cover;position:relative;display: inline-block;" ng-src="{{item.itemImage}}"></image>
+                </div>
+                <br>
+                <h2 style="font-size:18px;margin:0px;font-weight: bold">{{item.itemName}} (x{{item.itemQuantity}})</h2>
+                <h4 style="font-size:14px;margin:0px">{{item.itemDescription}}</h4>
+                <h3 style="font-size:18px;margin:0px;font-weight: bold">RM {{item.itemPrice}} each</h3>
+                <div id="timeOfPost" style="font-size:12px"><span am-time-ago="item.date" style="float:right"></span><br><span style="float:right">{{item.date | date:'dd/MM/yyyy HH:mm'}}</span><br></div>
+                <center>
+                    <button ng-hide="item.userId === userID || checkIsAdded(item._id)" class="btn btn-success" ng-click="addToCart(item._id)">Add to Cart</button>
+                    <div ng-show="checkIsAdded(item._id)" class="alert alert-info" role="alert">Added to Cart.</div>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <center><button class="btn btn-info" ng-click="showMore()" ng-if="list.length >= showNumberOfItems">Load more</button></center>
+    </div>
+
+    <br>
+
+    <div id="popOutMessageTab" ng-hide="true" style="width:400px;height:400px;position:fixed; z-index: 100;top:50%;left:50%;background-color: white;">
+        <span style="float:right;color:red;cursor:pointer" class="fa fa-times" ng-click="dismissPopOutMessageTab()"></span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.1/angular-moment.min.js"></script>
+    <script src="javascripts/angular-moment.js"></script>
+    <script src="javascripts/mainMenuController.js"></script>
+    <script src="/file-upload/ng-file-upload.js"></script>
+    <script src="/file-upload/ng-file-upload-all.js"></script>
+    <script src="/file-upload/ng-file-upload-shim.js"></script>
+
+</body>
+</html>

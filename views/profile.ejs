@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+
+
+<body ng-app="socialNetwork">
+<div class="container" ng-controller="editProfileController">
+
+<style parse-style> #imageFrame {background: url('{{imageURL}}'); background-size:cover;}</style>
+
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+            <a href="/main" class="btn btn-default btn-sm">Main Menu</a>
+            <a href="/mystore" class="btn btn-default btn-sm">My Store</a>
+            <a href="/mycart" class="btn btn-default btn-sm">My Cart<span ng-show="itemInCartList.length > 0" style="position:relative;left:3px;background-color:red" class="badge">{{itemInCartList.length}}</span></a>
+            <a href="/profile" class="btn btn-default btn-sm">Edit Profile</a>
+            <a href="/messages" class="btn btn-default btn-sm">Messages</a>
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <div id = "imageFrame" style="width:200px; height:200px;"></div>
+                        <div class="row">
+                            <button class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" >Select</button>
+                        </div>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>account username</strong>: {{username}}<br>
+                        <strong>bio</strong>: {{about}}<br>
+                        <strong>email</strong>: <%= user.local.email || user.facebook.email%><br>
+                        {{progressBar}}
+                    </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+      Update about me <input class="form-control" ng-model="user.bio" ng-blur="updateBio()"><button ng-submit="updateBio()">Submit</button>
+    </div>
+
+
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <script src="/file-upload/ng-file-upload.js"></script>
+    <script src="/file-upload/ng-file-upload-all.js"></script>
+    <script src="/file-upload/ng-file-upload-shim.js"></script>
+
+    <script src="javascripts/mainController.js"></script>
+
+</body>
+</html>

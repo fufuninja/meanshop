@@ -1,0 +1,28 @@
+{
+  "name": "mean-mart",
+  "main": "server.js",
+  "dependencies": {
+    "angular-moment": "^1.0.0-beta.6",
+    "angular-timeago": "^0.4.3",
+    "bcrypt-nodejs": "latest",
+    "body-parser": "~1.0.0",
+    "connect-flash": "~0.1.1",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "~1.0.0",
+    "ejs": "~0.8.5",
+    "express": "~4.0.0",
+    "express-session": "~1.0.0",
+    "fs-extra": "^0.30.0",
+    "method-override": "~1.0.0",
+    "moment": "^2.15.1",
+    "mongoose": "~3.8.1",
+    "morgan": "~1.0.0",
+    "ng-file-upload": "^12.2.9",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2",
+    "path": "^0.12.7"
+  }
+}
